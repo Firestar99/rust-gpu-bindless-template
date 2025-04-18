@@ -945,7 +945,6 @@ dependencies = [
  "num_enum",
  "rust-gpu-bindless-macros",
  "rust-gpu-bindless-shaders",
- "static_assertions",
 ]
 
 [[package]]

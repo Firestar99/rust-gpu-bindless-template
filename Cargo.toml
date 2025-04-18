@@ -43,7 +43,6 @@ bytemuck_derive = "1.4"
 
 # other
 smallvec = { version = "1.11", features = ["const_generics", "const_new", "union"] }
-static_assertions = "1.1.0"
 anyhow = "1.0"
 num_enum = { version = "0.7.2", default-features = false }
 approx = "0.5.1"
