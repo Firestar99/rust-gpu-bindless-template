@@ -1,0 +1,32 @@
+[package]
+name = "my-app"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+my-app-shader = { workspace = true }
+rust-gpu-bindless = { workspace = true, features = ["ash"] }
+rust-gpu-bindless-winit = { workspace = true, features = ["ash"] }
+
+# vulkan
+winit = { workspace = true }
+ash = { workspace = true }
+
+# bytes and numbers
+glam = { workspace = true }
+
+# other
+smallvec = { workspace = true }
+anyhow = { workspace = true }
+pollster = { workspace = true }
+approx = { workspace = true }
+
+[build-dependencies]
+anyhow = { workspace = true }
+rust-gpu-bindless-shader-builder = { workspace = true }
