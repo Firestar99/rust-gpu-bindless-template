@@ -77,10 +77,8 @@ async fn test_simple_compute(bindless: &Bindless) -> anyhow::Result<()> {
 		let b = buffer_b.to_transient(recording_context);
 		let indirection = buffer_indirection.to_transient(recording_context);
 
-		// Mutable resources can only be used unsafely, the user has to ensure they aren't used by multiple
-		// recordings simultaneously. By creating the output buffer here and returning it, it can only be accessed
-		// once the execution has completed.
-		// While I'd love to design a safe api around this, I simply don't have the time for it right now.
+		// For mutable resources to have a safe API, they must be consumed when used in some execution, and may be converted back and returned after all commands are
+		// enqueued. Here, the output buffer is created within the execution, accessed and will later be returned.
 		let buffer_out = bindless
 			.buffer()
 			.alloc_slice(
@@ -99,7 +97,7 @@ async fn test_simple_compute(bindless: &Bindless) -> anyhow::Result<()> {
 		// Enqueueing some dispatch takes in a user-supplied param struct that may contain any number of buffer
 		// accesses. This method will internally "remove" the lifetime of the param struct, as the lifetime of the
 		// buffers will be ensured by this execution not having finished yet.
-		// Note how `c` is passed in directly, without an indirection like the other buffers.
+		// Note how `a` is passed in directly, b is a reference to the buffer_b and c is not passed at all, and only accessible via indirection.
 		recording_context.dispatch(
 			&pipeline,
 			[len as u32, 1, 1],
